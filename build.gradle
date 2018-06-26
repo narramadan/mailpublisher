@@ -1,0 +1,37 @@
+buildscript {
+	repositories {
+		mavenCentral()
+    }
+}
+
+group = 'com.mail.publisher'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+task uiBuild(type: GradleBuild) {
+	buildFile = './ui/build.gradle'
+	tasks = ['build']
+}
+
+task apiBuild(type: GradleBuild) {
+	buildFile = './api/build.gradle'
+	tasks = ['clean','build']
+}
+
+task copyUiArtifacts(type: Copy) {
+	from "./ui/dist"
+	into "./api/src/main/resources/static"
+}
+
+task clean(type: Delete) {
+	// Delete individual folders
+	delete "./api/src/main/resources/static"
+	delete "./ui/dist"
+}
+
+task build(type: GradleBuild, dependsOn: clean) {
+    tasks = ['uiBuild','copyUiArtifacts', 'apiBuild']	
+}

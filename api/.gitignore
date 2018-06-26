@@ -1,6 +1,8 @@
 .gradle
 /bin/
 /build/
+/src/main/resources/static
+/src/main/resources/application.test.properties
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
