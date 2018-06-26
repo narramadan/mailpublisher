@@ -144,7 +144,7 @@ export default {
 					})
 				}
 				else {
-					this.responseMessage = response.code + ":" + response.message
+					this.responseMessage = response.data.code + ":" + response.data.message
 				}
 
 				console.log(this.responseMessage);      

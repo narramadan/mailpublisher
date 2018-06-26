@@ -51,6 +51,7 @@ public class APIExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<EmailResponse> handleGenericFailure(Exception e) {
+		e.printStackTrace();
 		EmailResponse response = new EmailResponse("5555", "Internal error occurred. Please try again later");
 		
 		return new ResponseEntity<EmailResponse>(response, HttpStatus.INTERNAL_SERVER_ERROR);
