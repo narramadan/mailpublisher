@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,6 +25,8 @@ import com.mail.publisher.util.ResponseCodes;
 @Service
 public class MailPublisher implements InitializingBean {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	@Qualifier("sendgrid")
 	private MailProvider sendgrid;
@@ -70,7 +74,7 @@ public class MailPublisher implements InitializingBean {
 				return;
 			}
 			catch(Exception e) {
-				System.out.println("Error occurred while publishing email with provider : "+provider.getClass().getName());
+				logger.error("Error occurred while publishing email with provider : "+provider.getClass().getName(), e);
 			}
 		}
 		

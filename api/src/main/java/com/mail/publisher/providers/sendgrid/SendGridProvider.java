@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +30,8 @@ import com.mail.publisher.util.ResponseCodes;
 @Component("sendgrid")
 public class SendGridProvider implements MailProvider {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	// Constants
 	private final String API_URL_MAIL_PUBLISH = "/mail/send";
 	private final int MAIL_PUBLISH_RESPONSE_CODE_SUCCESS = 202;
@@ -55,7 +59,7 @@ public class SendGridProvider implements MailProvider {
 	
 	@Override
 	public void sendEmail(Email email) throws MailPublishException {
-		System.out.println("Implementation for publishing mail through SendGrid");
+		logger.debug("Implementation for publishing mail through SendGrid");
 		
 		try {
 			
@@ -64,7 +68,7 @@ public class SendGridProvider implements MailProvider {
 			request.setHeaders(getHeaders());
 			
 			String emailContent = prepareBodyContent(email); 
-			System.out.println("=====> emailContent :: "+emailContent);
+			logger.debug("=====> emailContent :: "+emailContent);
 			request.setBody(emailContent);
 		
 			// Validate if response is successful by validating the response code. If not, throw exception

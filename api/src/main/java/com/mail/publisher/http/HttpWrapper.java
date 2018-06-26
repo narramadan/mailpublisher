@@ -2,6 +2,8 @@ package com.mail.publisher.http;
 
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.mashape.unirest.http.HttpResponse;
@@ -18,6 +20,8 @@ import com.mashape.unirest.request.HttpRequestWithBody;
  */
 @Component
 public class HttpWrapper{
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	/**
 	 * Method to handle http post request
@@ -52,7 +56,7 @@ public class HttpWrapper{
 		
 		// Invoke request and fetch response
 		response = uniRequest.asString();
-		//System.out.println("Status ===> "+response.getStatus()+ " :: "+response.getBody());
+		logger.debug("Status ===> "+response.getStatus()+ " :: "+response.getBody());
 		
 		return handleResponse(response);
 	}
