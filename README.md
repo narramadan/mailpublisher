@@ -19,9 +19,9 @@ With the kind of strategic fallback mechanism available, we can ensure that emai
 * Ensure that api jar is created successfully post gradle build is successfully completed.
 * Execute the following command to kickstart the spring boot application which will start the mail publisher example
 ```
-java -jar api-0.0.1-SNAPSHOT.jar --sendgrid.api.key="Bearer <SENDGRID_API_KEY>" --mailjet.api.key.public="<MAILJET_PUBLIC_API_KEY>" --mailjet.api.key.private="<MAILJET_PRIVATE_API_KEY>
+java -jar api-0.0.1-SNAPSHOT.jar --sendgrid.api.key="Bearer <SENDGRID_API_KEY>" --mailjet.api.key.public="<MAILJET_PUBLIC_API_KEY>" --mailjet.api.key.private="<MAILJET_PRIVATE_API_KEY> --mail.publisher.from.default="<EMAILADDRESS_OF_PUBLISHER>"
 
-Replace Placeholders for SendGrid & MailJet API Keys to test the application
+Replace Placeholders for SendGrid & MailJet API Keys and email address if publisher to test the application
 ```
 
 * Accessing http://localhost:8080 will open the email publisher UI client application
@@ -37,6 +37,20 @@ Replace Placeholders for SendGrid & MailJet API Keys to test the application
 * Unit & e2e test cases for User Interface
 * Containerizing the application with Docker
 * CI using Jenkins and CD using Terraform on AWS
+
+## Observations
+* SendGrid is not able to publish emails to outlook.com. Emails published to gmail.com are getting landed in spam/junk folder
+* MailJet will allow publishing the emails with the configured from address & mapped public and private keys only. API requests fail if there is deviation on the same.
+* MailJet is able to publish emails to outlook.com landing them to spam/junk folder. Emails are not delivered to gmail.com
+* Ensure to provide valid subject & email content to have the emails delivered successfully to your inbox.
+* Either of the services will get suspended during review process as we create test accounts to evaluate such services.
+* Fallback to other providers by implementing MailProvider interface. Below are few alternatives
+   * MailGun
+   * AWS Simple Email Service
+   * Agile CRM
+   * Mail Chimp
+   * Campayn
+   * etc...
 
 ## Screenshorts
 
